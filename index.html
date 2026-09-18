@@ -61,7 +61,7 @@ hr{border:0;border-top:1px solid #dfe7ed;margin:28px 0}.steps{display:grid;grid-
 <section class="pixbox">
 <h2>Chave Pix da Mazzo</h2>
 <div class="key">
-<input value="59.342.852/0001-00" readonly>
+<input id="displayKey" value="59.342.852/0001-00" readonly>
 <button onclick="copyKey()">COPIAR</button>
 </div>
 <div id="keyStatus" class="status">✓ Chave Pix copiada!</div>
@@ -81,7 +81,8 @@ hr{border:0;border-top:1px solid #dfe7ed;margin:28px 0}.steps{display:grid;grid-
 </div>
 
 <script>
-const KEY="59.342.852/0001-00";
+const KEY="59342852000100";
+const DISPLAY_KEY="59.342.852/0001-00";
 const NAME="M C MARTINAZZO";
 const CITY="ITIQUIRA";
 let payload="";
@@ -110,7 +111,7 @@ function copyText(text,id){
  if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(text).then(done);
  else{const x=document.createElement("textarea");x.value=text;document.body.appendChild(x);x.select();document.execCommand("copy");x.remove();done()}
 }
-function copyKey(){copyText(KEY,"keyStatus")}
+function copyKey(){copyText(DISPLAY_KEY,"keyStatus")}
 function copyPayload(){if(payload)copyText(payload,"copyStatus")}
 function downloadQR(){const c=document.querySelector("#qrcode canvas");if(c){const a=document.createElement("a");a.download="pix-mazzo.png";a.href=c.toDataURL("image/png");a.click()}}
 document.getElementById("amount").addEventListener("input",e=>e.target.value=e.target.value.replace(/[^\d.,]/g,""));
