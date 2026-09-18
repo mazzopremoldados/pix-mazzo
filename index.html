@@ -1,179 +1,119 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pix | Mazzo</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif; 
-            background: #071a2b;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .card {
-            width: 100%;
-            max-width: 420px;
-            background: #ffffff;
-            border-radius: 22px;
-            padding: 35px 28px;
-            text-align: center;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.25);
-        }
-
-        .logo {
-            font-size: 38px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #0a3152;
-            margin-bottom: 5px;
-        }
-
-        .subtitle {
-            color: #687582;
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
-
-        .pix-title {
-            font-size: 27px;
-            font-weight: 700;
-            color: #17212b;
-            margin-bottom: 10px;
-        }
-
-        .description {
-            color: #687582;
-            font-size: 15px;
-            line-height: 1.5;
-            margin-bottom: 25px;
-        }
-
-        .pix-box {
-            background: #f2f5f7;
-            border: 1px solid #dfe5e9;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 18px;
-        }
-
-        .pix-label {
-            display: block;
-            color: #687582;
-            font-size: 12px;
-            margin-bottom: 7px;
-        }
-
-        .pix-key {
-            font-size: 17px;
-            font-weight: 700;
-            color: #17212b;
-            word-break: break-all;
-        }
-
-        button {
-            width: 100%;
-            border: none;
-            border-radius: 12px;
-            padding: 16px;
-            background: #0a3152;
-            color: white;
-            font-size: 17px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        .success {
-            display: none;
-            margin-top: 16px;
-            color: #16803c;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .instruction {
-            margin-top: 25px;
-            font-size: 13px;
-            line-height: 1.5;
-            color: #7a858d;
-        }
-
-        .footer {
-            margin-top: 25px;
-            font-size: 11px;
-            color: #9aa3aa;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pagamento via Pix | Mazzo</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#061b2d;color:#10243b;padding:20px;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;background:linear-gradient(135deg,transparent 35%,#168ee5 35.3% 42%,transparent 42.3%),linear-gradient(315deg,transparent 65%,#0e4e7e 65.3% 72%,transparent 72.3%)}
+.wrap{max-width:760px;margin:auto;position:relative}.head{text-align:center;color:#fff;margin:5px 0 22px}
+.logo-img{width:min(430px,90vw);height:auto;max-height:150px;object-fit:contain;display:block;margin:0 auto 4px;filter:drop-shadow(0 8px 18px #0005)}
+.sub{font-size:12px;letter-spacing:1.4px;opacity:.9}
+.card{background:#fff;border-radius:28px;padding:30px;box-shadow:0 20px 60px #0006}
+.kicker{font-weight:700;color:#1768a8;font-size:16px}h1{font-size:40px;line-height:1.08;margin:8px 0}.lead{color:#587089;font-size:16px;margin-bottom:20px}
+.amount{display:flex;border:2px solid #2997ec;border-radius:15px;overflow:hidden;margin:18px 0 14px}.amount span{padding:16px 18px;background:#edf6fd;font-size:22px;font-weight:800}
+.amount input{border:0;outline:0;flex:1;min-width:0;font-size:28px;font-weight:700;padding:12px 16px;color:#10243b}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px}button{border:0;border-radius:13px;padding:16px;font-weight:800;font-size:15px;cursor:pointer}.primary{background:#0879cf;color:#fff}.secondary{background:#eaf2f8;color:#16334e}
+.result{display:none;margin-top:20px;padding:18px;border:1px solid #dce8f0;border-radius:17px;background:#f8fbfd}.grid{display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:center}
+#qrcode{background:#fff;padding:10px;width:220px;height:220px;border-radius:10px}.valueLabel{font-size:13px;color:#60758a}.value{font-size:30px;font-weight:900;color:#0b6fc0;margin:4px 0 15px}
+.wide{width:100%;background:#0879cf;color:#fff}.download{width:100%;margin-top:9px;background:#fff;color:#0879cf;border:1px solid #0879cf}.status{display:none;color:#16803c;font-weight:700;font-size:14px;margin-top:10px}
+.pixbox{margin-top:22px;padding:20px;border-radius:17px;background:#eef6fb}.pixbox h2{font-size:20px;margin:0 0 10px}.key{display:flex;gap:8px}
+.key input{width:100%;padding:13px;border:1px solid #cbd9e3;border-radius:10px;font-size:15px;font-weight:700;background:#fff}.key button{background:#fff;color:#0879cf;border:1px solid #0879cf;padding:13px}
+hr{border:0;border-top:1px solid #dfe7ed;margin:28px 0}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.step{text-align:center;color:#506b83;font-size:13px;line-height:1.35}
+.num{width:34px;height:34px;border-radius:50%;background:#168ee5;color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-weight:900}
+.trust{text-align:center;color:#60758a;font-size:13px;margin-top:25px}.footer{text-align:center;color:#8ba0b2;font-size:11px;margin-top:18px}
+.error{display:none;color:#b42318;font-size:13px;margin:8px 0}
+@media(max-width:600px){body{padding:14px 9px}.card{padding:21px 16px;border-radius:22px}h1{font-size:32px}.actions{grid-template-columns:1fr}.grid{grid-template-columns:1fr}#qrcode{margin:auto}.steps{grid-template-columns:repeat(2,1fr)}.logo-img{max-height:120px}}
+</style>
 </head>
-
 <body>
+<div class="wrap">
+<header class="head">
+<img class="logo-img" src="logo-mazzo.png" alt="Mazzo Construtora e Pré-Moldados">
+<div class="sub">CONSTRUTORA E PRÉ-MOLDADOS</div>
+</header>
+<main class="card">
+<div class="kicker">Pagamento via Pix</div>
+<h1>Informe o valor</h1>
+<p class="lead">Digite o valor que deseja pagar e gere o Pix.</p>
+<div class="amount"><span>R$</span><input id="amount" inputmode="decimal" placeholder="0,00" aria-label="Valor do pagamento"></div>
+<div id="error" class="error">Digite um valor válido maior que zero.</div>
+<div class="actions">
+<button class="primary" onclick="generatePix()">▣ &nbsp; GERAR PIX COM VALOR</button>
+<button class="secondary" onclick="copyKey()">⌑ &nbsp; COPIAR CHAVE PIX</button>
+</div>
 
-    <div class="card">
+<section id="result" class="result">
+<div class="grid">
+<div id="qrcode"></div>
+<div>
+<div class="valueLabel">VALOR DO PAGAMENTO</div>
+<div class="value" id="shownValue"></div>
+<button class="wide" onclick="copyPayload()">COPIAR CÓDIGO PIX</button>
+<button class="download" onclick="downloadQR()">BAIXAR QR CODE</button>
+<div id="copyStatus" class="status">✓ Código Pix copiado!</div>
+</div>
+</div>
+</section>
 
-        <div class="logo">MAZZO</div>
-        <div class="subtitle">Construtora e Pré-Moldados</div>
+<section class="pixbox">
+<h2>Chave Pix da Mazzo</h2>
+<div class="key">
+<input value="59.342.852/0001-00" readonly>
+<button onclick="copyKey()">COPIAR</button>
+</div>
+<div id="keyStatus" class="status">✓ Chave Pix copiada!</div>
+</section>
 
-        <div class="pix-title">Pagamento via Pix</div>
+<hr>
+<h2>Como pagar</h2>
+<div class="steps">
+<div class="step"><div class="num">1</div>Abra o app<br>do seu banco</div>
+<div class="step"><div class="num">2</div>Escolha a<br>opção Pix</div>
+<div class="step"><div class="num">3</div>Escaneie o QR Code<br>ou cole o código</div>
+<div class="step"><div class="num">4</div>Confira os dados<br>e finalize</div>
+</div>
+<div class="trust">🔒 Ambiente seguro e confiável</div>
+<div class="footer">MAZZO CONSTRUTORA E PRÉ-MOLDADOS</div>
+</main>
+</div>
 
-        <div class="description">
-            Utilize a chave Pix abaixo para realizar seu pagamento.
-        </div>
+<script>
+const KEY="59.342.852/0001-00";
+const NAME="M C MARTINAZZO";
+const CITY="ITIQUIRA";
+let payload="";
 
-        <div class="pix-box">
-            <span class="pix-label">CHAVE PIX</span>
-            <div class="pix-key" id="pixKey">
-                59.342.852/0001-00
-            </div>
-        </div>
-
-        <button onclick="copiarPix()">
-            COPIAR CHAVE PIX
-        </button>
-
-        <div class="success" id="success">
-            ✓ Chave Pix copiada!
-        </div>
-
-        <div class="instruction">
-            Depois de copiar, abra o aplicativo do seu banco,
-            escolha Pix e cole a chave para realizar o pagamento.
-        </div>
-
-        <div class="footer">
-            Mazzo Construtora e Pré-Moldados
-        </div>
-
-    </div>
-
-    <script>
-        function copiarPix() {
-            const chave = "59.342.852/0001-00";
-
-            navigator.clipboard.writeText(chave).then(function() {
-                document.getElementById("success").style.display = "block";
-
-                setTimeout(function() {
-                    document.getElementById("success").style.display = "none";
-                }, 3000);
-            });
-        }
-    </script>
-
+function field(id,v){return id+String(v.length).padStart(2,"0")+v}
+function crc(s){let c=65535;for(let i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(let j=0;j<8;j++)c=c&32768?((c<<1)^4129)&65535:(c<<1)&65535}return c.toString(16).toUpperCase().padStart(4,"0")}
+function clean(s){return s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^A-Za-z0-9 .-]/g,"").trim().toUpperCase()}
+function getAmount(){let x=document.getElementById("amount").value.trim().replace(/\s/g,"");if(x.includes(","))x=x.replace(/\./g,"").replace(",",".");let n=parseFloat(x);return isFinite(n)&&n>0?n:0}
+function buildPix(a){
+ let ma=field("00","BR.GOV.BCB.PIX")+field("01",KEY);
+ let p=field("00","01")+field("26",ma)+field("52","0000")+field("53","986")+field("54",a.toFixed(2))+field("58","BR")+field("59",clean(NAME).slice(0,25))+field("60",clean(CITY).slice(0,15))+field("62",field("05","***"));
+ return p+"6304"+crc(p+"6304");
+}
+function generatePix(){
+ const a=getAmount(),err=document.getElementById("error");
+ if(!a){err.style.display="block";return}
+ err.style.display="none";payload=buildPix(a);
+ document.getElementById("shownValue").textContent=a.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+ document.getElementById("qrcode").innerHTML="";
+ new QRCode(document.getElementById("qrcode"),{text:payload,width:200,height:200,correctLevel:QRCode.CorrectLevel.M});
+ document.getElementById("result").style.display="block";
+ document.getElementById("result").scrollIntoView({behavior:"smooth",block:"center"});
+}
+function copyText(text,id){
+ const done=()=>{const e=document.getElementById(id);e.style.display="block";setTimeout(()=>e.style.display="none",2500)};
+ if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(text).then(done);
+ else{const x=document.createElement("textarea");x.value=text;document.body.appendChild(x);x.select();document.execCommand("copy");x.remove();done()}
+}
+function copyKey(){copyText(KEY,"keyStatus")}
+function copyPayload(){if(payload)copyText(payload,"copyStatus")}
+function downloadQR(){const c=document.querySelector("#qrcode canvas");if(c){const a=document.createElement("a");a.download="pix-mazzo.png";a.href=c.toDataURL("image/png");a.click()}}
+document.getElementById("amount").addEventListener("input",e=>e.target.value=e.target.value.replace(/[^\d.,]/g,""));
+</script>
 </body>
 </html>
